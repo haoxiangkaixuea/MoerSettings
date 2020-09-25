@@ -1,4 +1,4 @@
-package cn.edu.scujcc.moresettings;
+package com.zsmarter.moresettings;
 
 import android.content.Context;
 
