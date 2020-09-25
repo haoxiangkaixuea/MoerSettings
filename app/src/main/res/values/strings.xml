@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MoreSettings</string>
+    <string name="Pop_dialog">弹出对话框</string>
+    <string name="more_setting">更多设置</string>
 </resources>
