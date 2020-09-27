@@ -1,6 +1,5 @@
 package com.zsmarter.moresettings;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -31,13 +30,10 @@ public class MainActivity extends AppCompatActivity {
         DragSortDialog dialog = new DragSortDialog(this);
         dialog.setTopItemViews("ABCDEFGHIJKLMN".split("\\B"));
         dialog.setBottomItemViews("OPQRSTUVWXYZ".split("\\B"));
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                List<String> list = ((DragSortDialog) dialog).getTopDefaultItemViews();
-                for (String s : list) {
-                    Log.d(TAG, s);
-                }
+        dialog.setOnDismissListener(dialog1 -> {
+            List<String> list = ((DragSortDialog) dialog1).getTopDefaultItemViews();
+            for (String s : list) {
+                Log.d(TAG, s);
             }
         });
         dialog.show();
