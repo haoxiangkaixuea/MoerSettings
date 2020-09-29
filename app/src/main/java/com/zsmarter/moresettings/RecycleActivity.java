@@ -1,9 +1,10 @@
 package com.zsmarter.moresettings;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,110 +12,97 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
-public class RecycleActivity extends AppCompatActivity {
+/**
+ * @author Administrator
+ */
+public class RecycleActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "RecycleActivity";
-    public List<String> mData;
-    RecyclerView mRecycleView;
-    private MyAdapter mAdapter;
-
-    ItemTouchHelper mItemHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-        //设置是否滑动时间，以及拖拽的方向，
-        // 如果是列表布局的话则拖拽方向有DOWN和UP，
-        // 如果是网格布局的话有DOWN和UP和LEFT和RIGHT4个方向
-        @Override
-        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            Log.e(TAG, "getMovementFlags()");
-            if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-                //拖动
-                final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN |
-                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-                //侧滑删除
-                final int swipeFlags = 0;
-                return makeMovementFlags(dragFlags, swipeFlags);
-            } else {
-                final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-                final int swipeFlags = 0;
-                return makeMovementFlags(dragFlags, swipeFlags);
-            }
-        }
-
-        //在拖动的过程中不断回调的方法,在这里可以写上一些交换数据的逻辑
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            Log.e(TAG, "onMove()");
-            //得到当拖拽的viewHolder的Position
-            int fromPosition = viewHolder.getAdapterPosition();
-            //拿到当前拖拽到的item的viewHolder
-            int toPosition = target.getAdapterPosition();
-            //对原数据进行移动
-            if (fromPosition < toPosition) {
-                for (int i = fromPosition; i < toPosition; i++) {
-                    Collections.swap(mData, i, i + 1);
-                }
-            } else {
-                for (int i = fromPosition; i > toPosition; i--) {
-                    Collections.swap(mData, i, i - 1);
-                }
-            }
-            //通知数据移动
-            mAdapter.notifyItemMoved(fromPosition, toPosition);
-            return true;
-        }
-
-        //拖动完成以后会回调的方法
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            Log.e(TAG, "拖拽完成 方向" + direction);
-        }
-
-        //是在选中以后回调的方法
-        @Override
-        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
-            super.onSelectedChanged(viewHolder, actionState);
-            Log.e(TAG, "onSelectedChanged()");
-            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-                viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
-            }
-        }
-
-        //是拖放完成以后view被释放的方法
-        @Override
-        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            super.clearView(recyclerView, viewHolder);
-            Log.e(TAG, "clearView()");
-            viewHolder.itemView.setBackgroundColor(0);
-        }
-
-        //重写拖拽不可用
-        @Override
-        public boolean isLongPressDragEnabled() {
-            Log.e(TAG, "isLongPressDragEnabled()");
-            return false;
-        }
-    });
+    public List<ImgFile> list = new ArrayList<>();
+    private ImgAdapter mAdapter;
     private Vibrator vb;
+    private Button btnSet;
+    private boolean isManager;
+
+    public RecycleActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle);
+        btnSet = findViewById(R.id.btnSet);
+        btnSet.setOnClickListener(this);
 
-        this.mRecycleView = (RecyclerView) findViewById(R.id.recyView);
-        mRecycleView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
-        mData = new ArrayList<>();
-        mAdapter = new MyAdapter(this, mData, mItemHelper, vb);
-        mRecycleView.setAdapter(mAdapter);
+        if (list != null && list.size() > 0) {
+            RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.recyView);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+            mRecycleView.setLayoutManager(gridLayoutManager);
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (position == 13) {
+                        return 1;
+                    } else {
+                        return 1;
+                    }
+                }
+            });
+            mAdapter.notifyDataSetChanged();
 
-        for (int i = 0; i < 100; i++) {
-            mData.add("加油" + i);
+            /*
+             * 使用itemTouchCallBack的时候
+             * */
+            ImgItemTouchHelper itemTouchCallBack = new ImgItemTouchHelper(list, mAdapter);
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
+            //拖拽功能
+            itemTouchHelper.attachToRecyclerView(mRecycleView);
+            mAdapter = new ImgAdapter(this, list);
+            mRecycleView.setAdapter(mAdapter);
+        } else {
+            assert list != null;
+            Log.e(TAG, "加载出错了" + list.size());
         }
+        loadUI();
+        Log.e(TAG, "loadUI()");
+    }
 
-        mAdapter.notifyDataSetChanged();
-        //拖拽功能
-        mItemHelper.attachToRecyclerView(mRecycleView);
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnSet:
+                isManager = !isManager;
+                btnSet.setText(isManager ? "取消" : "管理");
+                //为自定义方法--控制另外一个变量
+                mAdapter.changeShowDelImage(isManager);
+                break;
+            default:
+        }
+    }
+
+    public void loadUI() {
+        List<String> d = Arrays.asList(
+                "饿了么", "口碑", "市民中心", "电影演出", "转账",
+                "滴滴出行", "充值中心", "余额宝", "菜鸟驿站", "记账本",
+                "校园一卡通", "火车机票", "健康码", "花呗", "芝麻信用",
+                "酒店出游", "蚂蚁保险", "消费券", "街电",
+                "哈喽出行", "怪兽充电");
+        int[] drawable = {R.drawable.elimo, R.drawable.kobei, R.drawable.chengshifuwu, R.drawable.dinayingyanchu, R.drawable.zhuanzhan,
+                R.drawable.didichuxing, R.drawable.chongzhi, R.drawable.yuebao, R.drawable.cainiaoyizhan, R.drawable.jizhangben,
+                R.drawable.yikatong, R.drawable.huochepiao, R.drawable.jinagkangma, R.drawable.huabei, R.drawable.zhimaxingyong,
+                R.drawable.jiudian, R.drawable.mayibaoxian, R.drawable.xioafeijuan, R.drawable.jiudian,
+                R.drawable.hallo, R.drawable.guaishouchongdian};
+//        ImgFile img = new ImgFile();
+//        for (int i = 0; i < d.size(); i++) {
+//            img.setFileName(d.get(i));
+//        }
+//        for (int i = 0; i < drawable.length; i++) {
+//            img.setFileSrc(drawable[i]);
+//        }
+        list.add(new ImgFile("饿了么", R.drawable.elimo, R.drawable.ic_baseline_clear_24));
+        list.add(new ImgFile("饿了么", R.drawable.elimo, R.drawable.ic_baseline_clear_24));
     }
 }

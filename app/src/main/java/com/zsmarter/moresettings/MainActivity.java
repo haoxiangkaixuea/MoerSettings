@@ -10,6 +10,9 @@ import com.peake.draggridview.DragSortDialog;
 
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -20,12 +23,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button startDialog = findViewById(R.id.button);
-        startDialog.setOnClickListener(v -> {
-            showDialog();
-        });
+        startDialog.setOnClickListener(v -> showDialog());
     }
 
-    //点击弹出对话框
+    /**
+     * 点击弹出对话框
+     */
+
     public void showDialog() {
         DragSortDialog dialog = new DragSortDialog(this);
         dialog.setTopItemViews("ABCDEFGHIJKLMN".split("\\B"));
