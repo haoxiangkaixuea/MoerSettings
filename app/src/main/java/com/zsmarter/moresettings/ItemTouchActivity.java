@@ -39,11 +39,8 @@ public class ItemTouchActivity extends AppCompatActivity {
         ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList);
         recyclerView.setAdapter(itemTouchAdapter);
         //设置分割线
-//        GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
-//        recyclerView.addItemDecoration(decoration);
-
         //设置间距
-        //recyclerView.addItemDecoration(new SpaceItemDecoration(0, 200));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(0, 50));
         recyclerView.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
 
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
