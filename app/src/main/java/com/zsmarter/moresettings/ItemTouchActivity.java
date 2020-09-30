@@ -40,18 +40,13 @@ public class ItemTouchActivity extends AppCompatActivity {
         });
         ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList, ItemTouchActivity.this, recyclerView);
         recyclerView.setAdapter(itemTouchAdapter);
+        //设置分割线
         GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
         recyclerView.addItemDecoration(decoration);
 
-        //调用adapter中的方法,将position传过来
-        itemTouchAdapter.setItem(position -> {
-            //添加分割线
-            if (position == 13) {
-                //recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
-            }
-        });
-        //recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
-
+        //设置间距
+        //recyclerView.addItemDecoration(new SpaceItemDecoration(0, 200));
+        
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
         //拖拽功能
