@@ -20,7 +20,6 @@ import java.util.Objects;
 public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
-    private static final String TAG = "GridDividerItemDecoration";
     private Drawable mDivider;
 
     public GridDividerItemDecoration(Context context) {

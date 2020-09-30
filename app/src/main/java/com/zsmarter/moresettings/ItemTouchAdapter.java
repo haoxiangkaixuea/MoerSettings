@@ -1,6 +1,5 @@
 package com.zsmarter.moresettings;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,11 @@ import java.util.List;
  */
 public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.ViewHolder> {
 
-    private static final String TAG = "ItemTouchAdapter";
-    public IItem iItem;
     private List<User> mUsers;
 
-    public ItemTouchAdapter(List<User> user, Context context, RecyclerView recyclerView) {
+    public ItemTouchAdapter(List<User> user) {
         mUsers = user;
 
-    }
-
-    /**
-     * 此方法就是连接接口与activity的桥梁
-     */
-    public void setItem(IItem iItem) {
-        this.iItem = iItem;
     }
 
     @NonNull
@@ -65,29 +55,17 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         return mUsers.size();
     }
 
-    /**
-     * 在活动中实现的接口
-     */
-    public interface IItem {
-        /**
-         * 接口中的方法
-         */
-        void setOnItem(int position);
-    }
-
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
         private ImageView sImg;
         private ImageView sDelete;
-        private ConstraintLayout layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.rename);
             sImg = itemView.findViewById(R.id.reImg);
             sDelete = itemView.findViewById(R.id.imgDelete);
-            layout = itemView.findViewById(R.id.re_layout);
+            ConstraintLayout layout = itemView.findViewById(R.id.re_layout);
         }
     }
 }

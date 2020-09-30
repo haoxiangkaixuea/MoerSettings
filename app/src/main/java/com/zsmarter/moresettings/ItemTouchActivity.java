@@ -14,7 +14,6 @@ import java.util.List;
  * @author Administrator
  */
 public class ItemTouchActivity extends AppCompatActivity {
-    private static final String TAG = "ItemTouchActivity";
     private List<User> userList = new ArrayList<>();
 
     @Override
@@ -37,7 +36,7 @@ public class ItemTouchActivity extends AppCompatActivity {
                 }
             }
         });
-        ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList, ItemTouchActivity.this, recyclerView);
+        ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList);
         recyclerView.setAdapter(itemTouchAdapter);
         //设置分割线
         GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);

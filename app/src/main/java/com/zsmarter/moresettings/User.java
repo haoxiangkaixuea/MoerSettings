@@ -1,5 +1,7 @@
 package com.zsmarter.moresettings;
 
+import androidx.annotation.NonNull;
+
 /**
  * @author Administrator
  */
@@ -41,6 +43,7 @@ public class User {
         this.img = img;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "User{" +
