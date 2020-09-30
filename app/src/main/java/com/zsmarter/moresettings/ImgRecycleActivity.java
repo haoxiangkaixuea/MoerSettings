@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,8 +47,8 @@ public class ImgRecycleActivity extends AppCompatActivity implements View.OnClic
                     }
                 }
             });
-            mAdapter.notifyDataSetChanged();
 
+            mAdapter.notifyDataSetChanged();
             /*
              * 使用itemTouchCallBack的时候
              * */
@@ -81,20 +80,23 @@ public class ImgRecycleActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void loadUI() {
-        List<String> d = Arrays.asList(
+        String[] d = {
                 "饿了么", "口碑", "市民中心", "电影演出", "转账",
                 "滴滴出行", "充值中心", "余额宝", "菜鸟驿站", "记账本",
                 "校园一卡通", "火车机票", "健康码", "花呗", "芝麻信用",
                 "酒店出游", "蚂蚁保险", "消费券", "街电",
-                "哈喽出行", "怪兽充电");
+                "哈喽出行", "怪兽充电"
+        };
         int[] drawable = {R.drawable.elimo, R.drawable.kobei, R.drawable.chengshifuwu, R.drawable.dinayingyanchu, R.drawable.zhuanzhan,
                 R.drawable.didichuxing, R.drawable.chongzhi, R.drawable.yuebao, R.drawable.cainiaoyizhan, R.drawable.jizhangben,
                 R.drawable.yikatong, R.drawable.huochepiao, R.drawable.jinagkangma, R.drawable.huabei, R.drawable.zhimaxingyong,
                 R.drawable.jiudian, R.drawable.mayibaoxian, R.drawable.xioafeijuan, R.drawable.jiudian,
                 R.drawable.hallo, R.drawable.guaishouchongdian};
-//        ImgFile img = new ImgFile();
-//        for (int i = 0; i < d.size(); i++) {
-//            img.setFileName(d.get(i));
+
+        //        for (int i = 0; i < d.length; i++) {
+//            for (int j = 0; j < drawable.length; j++) {
+//               userList.add(drawable[j],d[i]);
+//            }
 //        }
 //        for (int i = 0; i < drawable.length; i++) {
 //            img.setFileSrc(drawable[i]);

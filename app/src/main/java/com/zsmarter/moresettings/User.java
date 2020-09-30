@@ -6,9 +6,18 @@ package com.zsmarter.moresettings;
 public class User {
 
     private int img;
+    private int delete;
     private String name;
 
     public User() {
+    }
+
+    public int getDelete() {
+        return delete;
+    }
+
+    public void setDelete(int delete) {
+        this.delete = delete;
     }
 
     public User(String name, int img) {

@@ -43,6 +43,7 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         User user = mUsers.get(position);
         holder.tvName.setText(user.getName());
         holder.sImg.setImageResource(user.getImg());
+        holder.sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
     }
 
     @Override
@@ -53,11 +54,13 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
         private ImageView sImg;
+        private ImageView sDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.rename);
             sImg = itemView.findViewById(R.id.reImg);
+            sDelete = itemView.findViewById(R.id.imgDelete);
         }
     }
 }

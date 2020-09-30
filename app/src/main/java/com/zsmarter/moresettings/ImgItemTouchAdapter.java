@@ -1,6 +1,7 @@
 package com.zsmarter.moresettings;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class ImgItemTouchAdapter extends RecyclerView.Adapter<ImgItemTouchAdapte
     private Context mContext;
     private List<ImgFile> mList;
     private boolean isShow;
+    private static final String TAG = "ImgItemTouchAdapter";
 
     public ImgItemTouchAdapter(Context mContext, List<ImgFile> list) {
         this.mContext = mContext;
@@ -38,6 +40,7 @@ public class ImgItemTouchAdapter extends RecyclerView.Adapter<ImgItemTouchAdapte
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         ImgFile img = mList.get(position);
         holder.tv.setText(img.getFileName());
+        Log.e(TAG, "holder.tv" + holder.tv);
         holder.imageView.setImageResource(img.getFileSrc());
 
         if (isShow) {
