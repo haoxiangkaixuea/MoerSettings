@@ -24,7 +24,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         //自定义分割线颜色值
-        mDivider = AppCompatResources.getDrawable(context, R.color.colorPrimary);
+        mDivider = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_clear_24);
         a.recycle();
     }
 
@@ -52,7 +52,11 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
      */
     public void drawHorizontal(Canvas c, RecyclerView parent) {
         int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        //这里固定了，最后一个不用线条
+        if (childCount <= 0) {
+            return;
+        }
+        for (int i = 10; i < 14; i++) {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
@@ -75,20 +79,22 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int childCount = parent.getChildCount();
         //这里固定了，最后一个不用线条
-        if (childCount <= 0) {
+        if (childCount >= 0) {
             return;
         }
         for (int i = 0; i < childCount - 1; i++) {
             final View child = parent.getChildAt(i);
-
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int top = child.getTop() - params.topMargin;
             final int bottom = child.getBottom() + params.bottomMargin;
             final int left = child.getRight() + params.rightMargin;
+            //final int right = child.getRight() + params.leftMargin;
             final int right = left + mDivider.getIntrinsicWidth();
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
+
+
         }
     }
 
@@ -130,19 +136,28 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        int childAdapterPosition = parent.getChildAdapterPosition(view);
-        int lastCount = parent.getAdapter().getItemCount() - 1;
-        if (childAdapterPosition != 13) {
-            outRect.set(0, 0, 0, 0);
-            return;
-        }
-        if (childAdapterPosition == lastCount) {
-            outRect.set(0, 0, 0, 0);
-            return;
-        }
-        outRect.set(0, 0, 0, 0);
+//        int childAdapterPosition = parent.getChildAdapterPosition(view);
+//        int lastCount = parent.getAdapter().getItemCount() - 1;
+//        if (childAdapterPosition != 13) {
+//            outRect.set(0, 0, 0, 0);
+//            return;
+//        }
+//        if (childAdapterPosition == lastCount) {
+//            outRect.set(0, 0, 0, 0);
+//            return;
+//        }
+//        outRect.set(0, 0, 0, 0);
 
         // 如果是最后一行，则不需要绘制底
+//        int childAdapterPosition = parent.getChildAdapterPosition(view);
+//        if (childAdapterPosition == 0) {
+//            outRect.set(0, 0, 0, 0);
+//        } else if (childAdapterPosition == parent.getAdapter().getItemCount() - 1) {
+//            outRect.set(0, 0, 0, 0);
+//        } else if (childAdapterPosition != 1) {
+//            outRect.set(0, 0, 0, 0);
+//        }
+//
 //        if (isLastRow(parent.getChildLayoutPosition(view), parent)) {
 //            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
 //        }

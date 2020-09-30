@@ -28,20 +28,28 @@ public class ItemTouchActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 13) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            }
+        });
         ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList, ItemTouchActivity.this, recyclerView);
         recyclerView.setAdapter(itemTouchAdapter);
         GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
         recyclerView.addItemDecoration(decoration);
+
         //调用adapter中的方法,将position传过来
         itemTouchAdapter.setItem(position -> {
             //添加分割线
             if (position == 13) {
-
                 //recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
             }
         });
-
-
         //recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
 
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);

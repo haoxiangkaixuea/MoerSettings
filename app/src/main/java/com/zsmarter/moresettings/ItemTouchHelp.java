@@ -46,7 +46,7 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         //拿到当前拖拽到的item的viewHolder
         int toPosition = target.getAdapterPosition();
         Log.e(TAG, "toPosition" + toPosition);
-        if ((fromPosition > 2 && toPosition > 2) && (fromPosition != 14 && toPosition != 14)) {
+        if ((fromPosition > 2 && toPosition > 2)) {
             if (fromPosition < toPosition) {
                 for (int i = fromPosition; i < toPosition; i++) {
                     Collections.swap(userList, i, i + 1);

@@ -37,17 +37,6 @@ public class ImgRecycleActivity extends AppCompatActivity implements View.OnClic
             RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.recyView);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
             mRecycleView.setLayoutManager(gridLayoutManager);
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    if (position == 13) {
-                        return 1;
-                    } else {
-                        return 1;
-                    }
-                }
-            });
-
             mAdapter.notifyDataSetChanged();
             /*
              * 使用itemTouchCallBack的时候

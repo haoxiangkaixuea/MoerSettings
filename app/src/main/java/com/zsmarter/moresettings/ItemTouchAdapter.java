@@ -31,7 +31,9 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
 
     }
 
-    //此方法就是连接接口与activity的桥梁
+    /**
+     * 此方法就是连接接口与activity的桥梁
+     */
     public void setItem(IItem iItem) {
         this.iItem = iItem;
     }
@@ -54,9 +56,6 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
             iItem.setOnItem(position);
         });
         if (position < 3) {
-//            DividerItemDecoration divider = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
-//            divider.setDrawable(ContextCompat.getDrawable(context, R.drawable.shape));
-//            recyclerView.addItemDecoration(divider);
             holder.sDelete.setVisibility(View.INVISIBLE);
         }
     }
