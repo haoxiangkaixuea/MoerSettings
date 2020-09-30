@@ -18,9 +18,9 @@ import java.util.List;
 public class ImgItemTouchHelper extends ItemTouchHelper.Callback {
     private static final String TAG = "ImgItemTouchHelper";
     public List<ImgFile> list;
-    private ImgAdapter mAdapter;
+    private ImgItemTouchAdapter mAdapter;
 
-    public ImgItemTouchHelper(List<ImgFile> list, ImgAdapter mAdapter) {
+    public ImgItemTouchHelper(List<ImgFile> list, ImgItemTouchAdapter mAdapter) {
         this.list = list;
         this.mAdapter = mAdapter;
     }

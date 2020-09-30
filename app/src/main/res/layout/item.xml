@@ -30,7 +30,6 @@
         android:layout_alignParentRight="true"
         android:padding="5dp"
         android:src="@drawable/ic_baseline_clear_24"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

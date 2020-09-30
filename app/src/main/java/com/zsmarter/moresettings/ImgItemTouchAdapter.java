@@ -18,12 +18,12 @@ import java.util.List;
  * @author Administrator
  */
 
-public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.MyViewHolder> {
+public class ImgItemTouchAdapter extends RecyclerView.Adapter<ImgItemTouchAdapter.MyViewHolder> {
     private Context mContext;
     private List<ImgFile> mList;
     private boolean isShow;
 
-    public ImgAdapter(Context mContext, List<ImgFile> list) {
+    public ImgItemTouchAdapter(Context mContext, List<ImgFile> list) {
         this.mContext = mContext;
         this.mList = list;
     }

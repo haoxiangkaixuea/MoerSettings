@@ -22,7 +22,7 @@ public class ImgRecycleActivity extends AppCompatActivity implements View.OnClic
 
     private static final String TAG = "RecycleActivity";
     public List<ImgFile> list = new ArrayList<>();
-    private ImgAdapter mAdapter;
+    private ImgItemTouchAdapter mAdapter;
     private Vibrator vb;
     private Button btnSet;
     private boolean isManager;
@@ -57,7 +57,7 @@ public class ImgRecycleActivity extends AppCompatActivity implements View.OnClic
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
             //拖拽功能
             itemTouchHelper.attachToRecyclerView(mRecycleView);
-            mAdapter = new ImgAdapter(this, list);
+            mAdapter = new ImgItemTouchAdapter(this, list);
             mRecycleView.setAdapter(mAdapter);
         } else {
             assert list != null;

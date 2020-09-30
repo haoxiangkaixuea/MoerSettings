@@ -19,10 +19,13 @@ import java.util.List;
  *     desc   :
  *     version: 1.0
  * </pre>
+ *
+ * @author Administrator
  */
 public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.ViewHolder> {
 
     private List<User> mUsers;
+    private String TAG = "ItemTouchAdapter";
 
     public ItemTouchAdapter(List<User> user) {
         mUsers = user;
@@ -31,14 +34,14 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     @NonNull
     @Override
     public ItemTouchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_touch, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_touch, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemTouchAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ItemTouchAdapter.ViewHolder holder, int position) {
         User user = mUsers.get(position);
-        holder.name.setText(user.getName());
+        holder.tvName.setText(user.getName());
         holder.sImg.setImageResource(user.getImg());
     }
 
@@ -48,13 +51,13 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
+        private TextView tvName;
         private ImageView sImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.studentname);
-            sImg = itemView.findViewById(R.id.studentimage);
+            tvName = itemView.findViewById(R.id.rename);
+            sImg = itemView.findViewById(R.id.reImg);
         }
     }
 }
