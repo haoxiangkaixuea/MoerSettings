@@ -36,6 +36,13 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         holder.tvName.setText(user.getName());
         holder.sImg.setImageResource(user.getImg());
         holder.sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
+        holder.sDelete.setOnClickListener(view -> remove(position));
+    }
+
+    public void remove(int position) {
+        mUsers.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mUsers.size());
     }
 
     @Override
