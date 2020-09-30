@@ -29,8 +29,8 @@ public class ItemTouchActivity extends AppCompatActivity {
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == 14) {
-                    return 5;
+                if (position == 13) {
+                    return 2;
                 } else {
                     return 1;
                 }
@@ -39,8 +39,8 @@ public class ItemTouchActivity extends AppCompatActivity {
         ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList);
         recyclerView.setAdapter(itemTouchAdapter);
         //设置分割线
-        GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
-        recyclerView.addItemDecoration(decoration);
+//        GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
+//        recyclerView.addItemDecoration(decoration);
 
         //设置间距
         //recyclerView.addItemDecoration(new SpaceItemDecoration(0, 200));

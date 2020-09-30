@@ -26,7 +26,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         //自定义分割线颜色值
-        mDivider = AppCompatResources.getDrawable(context, R.drawable.ic_baseline_clear_24);
+        mDivider = AppCompatResources.getDrawable(context, R.drawable.shape);
         a.recycle();
     }
 
