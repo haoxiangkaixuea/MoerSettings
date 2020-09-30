@@ -31,6 +31,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
         //竖直方向的
         assert layoutManager != null;
+
         if (layoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
             //最后一项需要 bottom
             if (parent.getChildAdapterPosition(view) == layoutManager.getItemCount() - 1) {
