@@ -21,13 +21,9 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     private static final String TAG = "ItemTouchAdapter";
     public IItem iItem;
     private List<User> mUsers;
-    private Context context;
-    private RecyclerView recyclerView;
 
     public ItemTouchAdapter(List<User> user, Context context, RecyclerView recyclerView) {
         mUsers = user;
-        this.context = context;
-        this.recyclerView = recyclerView;
 
     }
 
@@ -52,9 +48,7 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         holder.sImg.setImageResource(user.getImg());
         holder.sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
         holder.sDelete.setOnClickListener(view -> remove(position));
-        holder.layout.setOnClickListener(v -> {
-            iItem.setOnItem(position);
-        });
+
         if (position < 3) {
             holder.sDelete.setVisibility(View.INVISIBLE);
         }

@@ -7,9 +7,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Objects;
 
 /**
  * @author Administrator
@@ -30,7 +33,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         drawHorizontal(c, parent);
         drawVertical(c, parent);
     }
@@ -47,8 +50,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     /***
      * 绘制水平分割线
-     * @param c
-     * @param parent
      */
     public void drawHorizontal(Canvas c, RecyclerView parent) {
         int childCount = parent.getChildCount();
@@ -93,8 +94,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             final int right = left + mDivider.getIntrinsicWidth();
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
-
-
         }
     }
 
@@ -134,36 +133,18 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-//        int childAdapterPosition = parent.getChildAdapterPosition(view);
-//        int lastCount = parent.getAdapter().getItemCount() - 1;
-//        if (childAdapterPosition != 13) {
-//            outRect.set(0, 0, 0, 0);
-//            return;
-//        }
-//        if (childAdapterPosition == lastCount) {
-//            outRect.set(0, 0, 0, 0);
-//            return;
-//        }
-//        outRect.set(0, 0, 0, 0);
-
-        // 如果是最后一行，则不需要绘制底
-//        int childAdapterPosition = parent.getChildAdapterPosition(view);
-//        if (childAdapterPosition == 0) {
-//            outRect.set(0, 0, 0, 0);
-//        } else if (childAdapterPosition == parent.getAdapter().getItemCount() - 1) {
-//            outRect.set(0, 0, 0, 0);
-//        } else if (childAdapterPosition != 1) {
-//            outRect.set(0, 0, 0, 0);
-//        }
-//
-//        if (isLastRow(parent.getChildLayoutPosition(view), parent)) {
-//            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-//        }
-//        // 如果是最后一列，则不需要绘制右边
-//        if (isLastColum(parent.getChildLayoutPosition(view), parent)) {
-//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
-//        }
+        int childAdapterPosition = parent.getChildAdapterPosition(view);
+        int lastCount = Objects.requireNonNull(parent.getAdapter()).getItemCount() - 1;
+        if (childAdapterPosition == 0) {
+            outRect.set(0, 0, 0, 0);
+            return;
+        }
+        if (childAdapterPosition == lastCount) {
+            outRect.set(0, 0, 0, 0);
+            return;
+        }
+        outRect.set(0, 0, 0, 0);
     }
 }

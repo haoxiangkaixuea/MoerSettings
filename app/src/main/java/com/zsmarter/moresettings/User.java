@@ -12,17 +12,17 @@ public class User {
     public User() {
     }
 
+    public User(String name, int img) {
+        this.name = name;
+        this.img = img;
+    }
+
     public int getDelete() {
         return delete;
     }
 
     public void setDelete(int delete) {
         this.delete = delete;
-    }
-
-    public User(String name, int img) {
-        this.name = name;
-        this.img = img;
     }
 
     public String getName() {
