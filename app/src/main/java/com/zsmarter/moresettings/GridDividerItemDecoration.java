@@ -33,7 +33,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
 
     @Override
-    public void onDraw(Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         drawHorizontal(c, parent);
         drawVertical(c, parent);
     }
@@ -73,9 +73,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * 绘制垂直线
-     *
-     * @param c
-     * @param parent
      */
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int childCount = parent.getChildCount();
@@ -105,7 +102,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         //有多少列
         if (layoutManager instanceof GridLayoutManager) {
-            int childCount = parent.getAdapter().getItemCount();
+            int childCount = Objects.requireNonNull(parent.getAdapter()).getItemCount();
             //总行数
             double count = Math.ceil((double) childCount / (double) spanCount);
             //当前行数
@@ -121,7 +118,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 判断是否是最后一列
      */
-    private boolean isLastColum(int itemPosition, RecyclerView parent) {
+    private boolean isLast(int itemPosition, RecyclerView parent) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         //有多少列
         if (layoutManager instanceof GridLayoutManager) {
