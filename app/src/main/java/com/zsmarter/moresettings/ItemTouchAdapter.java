@@ -37,6 +37,9 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         holder.sImg.setImageResource(user.getImg());
         holder.sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
         holder.sDelete.setOnClickListener(view -> remove(position));
+        if (position < 3) {
+            holder.sDelete.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void remove(int position) {
