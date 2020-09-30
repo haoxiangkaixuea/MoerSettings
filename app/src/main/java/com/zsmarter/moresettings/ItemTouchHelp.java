@@ -13,13 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <pre>
- *     author : Administrator
- *     e-mail : xxx@xx
- *     time   : 2020/09/30
- *     desc   :
- *     version: 1.0
- * </pre>
+ * @author Administrator
  */
 public class ItemTouchHelp extends ItemTouchHelper.Callback {
     private static final String TAG = "ImgItemTouchHelper";

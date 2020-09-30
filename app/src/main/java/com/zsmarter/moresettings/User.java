@@ -48,5 +48,4 @@ public class User {
                 ", img='" + img + '\'' +
                 '}';
     }
-
 }

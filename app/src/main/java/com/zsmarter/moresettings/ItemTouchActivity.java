@@ -31,6 +31,7 @@ public class ItemTouchActivity extends AppCompatActivity {
         ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList);
         recyclerView.setAdapter(itemTouchAdapter);
 
+        //添加分割线
         recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
 
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);

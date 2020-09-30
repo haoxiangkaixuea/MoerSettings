@@ -12,20 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 /**
- * <pre>
- *     author : Administrator
- *     e-mail : xxx@xx
- *     time   : 2020/09/29
- *     desc   :
- *     version: 1.0
- * </pre>
- *
  * @author Administrator
  */
 public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.ViewHolder> {
 
+    private static final String TAG = "ItemTouchAdapter";
     private List<User> mUsers;
-    private String TAG = "ItemTouchAdapter";
 
     public ItemTouchAdapter(List<User> user) {
         mUsers = user;
