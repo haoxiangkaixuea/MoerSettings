@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 public class ItemTouchActivity extends AppCompatActivity {
     private List<User> userList = new ArrayList<>();
 

@@ -102,7 +102,7 @@ public class ImgItemTouchHelper extends ItemTouchHelper.Callback {
         super.onSelectedChanged(viewHolder, actionState);
         Log.e(TAG, "onSelectedChanged()");
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            viewHolder.itemView.setBackgroundColor(Color.WHITE);
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffffffff"));
         }
     }
 

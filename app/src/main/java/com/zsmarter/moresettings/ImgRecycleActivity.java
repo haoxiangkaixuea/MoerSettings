@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author Administrator
  */
-public class RecycleActivity extends AppCompatActivity implements View.OnClickListener {
+public class ImgRecycleActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "RecycleActivity";
     public List<ImgFile> list = new ArrayList<>();
@@ -26,9 +26,6 @@ public class RecycleActivity extends AppCompatActivity implements View.OnClickLi
     private Vibrator vb;
     private Button btnSet;
     private boolean isManager;
-
-    public RecycleActivity() {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +36,7 @@ public class RecycleActivity extends AppCompatActivity implements View.OnClickLi
 
         if (list != null && list.size() > 0) {
             RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.recyView);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
             mRecycleView.setLayoutManager(gridLayoutManager);
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
