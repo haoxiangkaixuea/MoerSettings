@@ -3,7 +3,6 @@ package com.zsmarter.moresettings;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,11 +28,21 @@ public class ItemTouchActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
-        ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList);
+        ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList, ItemTouchActivity.this, recyclerView);
         recyclerView.setAdapter(itemTouchAdapter);
+        GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
+        recyclerView.addItemDecoration(decoration);
+        //调用adapter中的方法,将position传过来
+        itemTouchAdapter.setItem(position -> {
+            //添加分割线
+            if (position == 13) {
 
-        //添加分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
+                //recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
+            }
+        });
+
+
+        //recyclerView.addItemDecoration(new DividerItemDecoration(ItemTouchActivity.this, DividerItemDecoration.VERTICAL));
 
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
@@ -98,6 +107,5 @@ public class ItemTouchActivity extends AppCompatActivity {
         userList.add(user21);
         User user22 = new User("怪兽充电", R.drawable.guaishouchongdian);
         userList.add(user22);
-
     }
 }
