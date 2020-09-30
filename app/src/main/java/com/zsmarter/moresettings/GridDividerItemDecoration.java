@@ -30,7 +30,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         a.recycle();
     }
 
-
     @Override
     public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         drawHorizontal(c, parent);
@@ -112,7 +111,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
         return true;
     }
-
 
     /**
      * 判断是否是最后一列

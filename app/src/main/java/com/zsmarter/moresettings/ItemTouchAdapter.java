@@ -21,7 +21,6 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
 
     public ItemTouchAdapter(List<User> user) {
         mUsers = user;
-
     }
 
     @NonNull
