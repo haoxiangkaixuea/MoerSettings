@@ -48,11 +48,25 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         if ((fromPosition > 2 && toPosition > 2)) {
             if (fromPosition < toPosition) {
                 for (int i = fromPosition; i < toPosition; i++) {
-                    Collections.swap(userList, i, i + 1);
+                    if (i == 13) {
+                        continue;
+                    }
+                    if (i == 12) {
+                        Collections.swap(userList, i, i + 2);
+                    } else {
+                        Collections.swap(userList, i, i + 1);
+                    }
                 }
             } else {
                 for (int i = fromPosition; i > toPosition; i--) {
-                    Collections.swap(userList, i, i - 1);
+                    if (i == 13) {
+                        continue;
+                    }
+                    if (i == 14) {
+                        Collections.swap(userList, i, i - 2);
+                    } else {
+                        Collections.swap(userList, i, i - 1);
+                    }
                 }
             }
             mAdapter.notifyItemMoved(fromPosition, toPosition);

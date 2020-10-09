@@ -1,6 +1,9 @@
 package com.zsmarter.moresettings;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,15 +16,20 @@ import java.util.List;
 /**
  * @author Administrator
  */
-public class ItemTouchActivity extends AppCompatActivity {
+public class ItemTouchActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "ItemTouchActivity";
     private List<User> userList = new ArrayList<>();
+    private Boolean isManager = false;
+    private Button btnSet;
+    private ItemTouchAdapter itemTouchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_touch);
 
-        initUser();
+        btnSet = findViewById(R.id.set);
+        btnSet.setOnClickListener(this);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
@@ -30,69 +38,82 @@ public class ItemTouchActivity extends AppCompatActivity {
             @Override
             public int getSpanSize(int position) {
                 if (position == 13) {
-                    return 2;
+                    return 5;
                 } else {
                     return 1;
                 }
             }
         });
-        ItemTouchAdapter itemTouchAdapter = new ItemTouchAdapter(userList);
+        itemTouchAdapter = new ItemTouchAdapter(this);
         recyclerView.setAdapter(itemTouchAdapter);
-        //设置分割线
-        //设置间距
-//        recyclerView.addItemDecoration(new SpaceItemDecoration(0, 50));
-//        recyclerView.addItemDecoration(new MyDecoration(this, MyDecoration.VERTICAL_LIST));
+
+        initUser();
 
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
         //拖拽功能
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        //拿到item的position
+        itemTouchAdapter.setItem(new ItemTouchAdapter.IItem() {
+            @Override
+            public void setOnItem(int position) {
+                if (position > 2) {
+                    //Toast.makeText(ItemTouchActivity.this, "点击了" + (position), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void initUser() {
-        User user1 = new User("饿了么", R.drawable.elimo);
-        userList.add(user1);
-        User user2 = new User("口碑", R.drawable.kobei);
-        userList.add(user2);
-        User user3 = new User("市民中心", R.drawable.chengshifuwu);
-        userList.add(user3);
-        User user4 = new User("电影演出", R.drawable.dinayingyanchu);
-        userList.add(user4);
-        User user5 = new User("转账", R.drawable.zhuanzhan);
-        userList.add(user5);
-        User user6 = new User("滴滴出行", R.drawable.didichuxing);
-        userList.add(user6);
-        User user7 = new User("充值中心", R.drawable.chongzhi);
-        userList.add(user7);
-        User user8 = new User("余额宝", R.drawable.yuebao);
-        userList.add(user8);
-        User user9 = new User("菜鸟驿站", R.drawable.cainiaoyizhan);
-        userList.add(user9);
-        User user10 = new User("记账本", R.drawable.jizhangben);
-        userList.add(user10);
-        User user11 = new User("校园一卡通", R.drawable.yikatong);
-        userList.add(user11);
-        User user12 = new User("火车机票", R.drawable.huochepiao);
-        userList.add(user12);
-        User user13 = new User("饿了么", R.drawable.elimo);
-        userList.add(user13);
-        User user14 = new User("健康码", R.drawable.jinagkangma);
-        userList.add(user14);
-        User user15 = new User("花呗", R.drawable.huabei);
-        userList.add(user15);
-        User user16 = new User("芝麻信用", R.drawable.zhimaxingyong);
-        userList.add(user16);
-        User user17 = new User("酒店出游", R.drawable.jiudian);
-        userList.add(user17);
-        User user18 = new User("蚂蚁保险", R.drawable.mayibaoxian);
-        userList.add(user18);
-        User user19 = new User("消费券", R.drawable.xioafeijuan);
-        userList.add(user19);
-        User user20 = new User("街电", R.drawable.jiedian);
-        userList.add(user20);
-        User user21 = new User("哈喽出行", R.drawable.hallo);
-        userList.add(user21);
-        User user22 = new User("怪兽充电", R.drawable.guaishouchongdian);
-        userList.add(user22);
+        userList = DataUtils.getData(DataUtils.DEFAULT_SP_NAME, "userList", this);
+        Log.d(TAG, "size: " + userList.size());
+        if (userList.size() == 0) {
+            userList.add(new User("饿了么", R.drawable.elimo));
+            userList.add(new User("口碑", R.drawable.kobei));
+            userList.add(new User("市民中心", R.drawable.chengshifuwu));
+            userList.add(new User("电影演出", R.drawable.dinayingyanchu));
+            userList.add(new User("转账", R.drawable.zhuanzhan));
+            userList.add(new User("滴滴出行", R.drawable.didichuxing));
+            userList.add(new User("充值中心", R.drawable.chongzhi));
+            userList.add(new User("余额宝", R.drawable.yuebao));
+            userList.add(new User("菜鸟驿站", R.drawable.cainiaoyizhan));
+            userList.add(new User("记账本", R.drawable.jizhangben));
+            userList.add(new User("校园一卡通", R.drawable.yikatong));
+            userList.add(new User("火车机票", R.drawable.huochepiao));
+            userList.add(new User("饿了么", R.drawable.elimo));
+            userList.add(new User("健康码", R.drawable.jinagkangma));
+            userList.add(new User("花呗", R.drawable.huabei));
+            userList.add(new User("芝麻信用", R.drawable.zhimaxingyong));
+            userList.add(new User("酒店出游", R.drawable.jiudian));
+            userList.add(new User("蚂蚁保险", R.drawable.mayibaoxian));
+            userList.add(new User("消费券", R.drawable.xioafeijuan));
+            userList.add(new User("街电", R.drawable.jiedian));
+            userList.add(new User("哈喽出行", R.drawable.hallo));
+            userList.add(new User("怪兽充电", R.drawable.guaishouchongdian));
+        }
+        Log.d(TAG, "userList==" + userList);
+        Log.d(TAG, "itemTouchAdapter==" + itemTouchAdapter);
+        itemTouchAdapter.setData(userList);
+        itemTouchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        DataUtils.saveData(userList, DataUtils.DEFAULT_SP_NAME, "userList", this);
+        super.onDestroy();
+        Log.d(TAG, "userList==" + userList);
+        //销毁前存储数据
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.set) {
+            isManager = !isManager;
+            btnSet.setText(isManager ? "取消" : "管理");
+            //为自定义方法--控制另外一个变量
+            Log.d(TAG, "isManager==  " + isManager);
+            itemTouchAdapter.changeShowDelImage(isManager);
+        }
     }
 }

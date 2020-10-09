@@ -1,5 +1,6 @@
 package com.zsmarter.moresettings;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +20,24 @@ import java.util.List;
  */
 public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.ViewHolder> {
 
-    private List<User> mUsers;
+    private List<User> mUsers = new ArrayList<>();
+    private boolean isShow;
+    private IItem iItem;
+    private ItemTouchHelper mItemHelper;
+    private Context context;
 
-    public ItemTouchAdapter(List<User> user) {
-        mUsers = user;
+    public ItemTouchAdapter(Context context) {
+        this.context = context;
+    }
+
+    //此方法就是连接接口与activity的桥梁
+    public void setItem(IItem iItem) {
+        this.iItem = iItem;
+    }
+
+    public void setData(List<User> users) {
+        this.mUsers = users;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -35,11 +52,22 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         User user = mUsers.get(position);
         holder.tvName.setText(user.getName());
         holder.sImg.setImageResource(user.getImg());
+
+        holder.sImg.setOnClickListener(v -> {
+            iItem.setOnItem(position);
+        });
+
         holder.sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
         holder.sDelete.setOnClickListener(view -> remove(position));
 
-        if (position < 3) {
+        if (isShow) {
+            holder.sDelete.setVisibility(View.VISIBLE);
+        } else {
             holder.sDelete.setVisibility(View.INVISIBLE);
+        }
+
+        if (position < 3) {
+            holder.sDelete.setVisibility(View.GONE);
         }
     }
 
@@ -52,6 +80,21 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     @Override
     public int getItemCount() {
         return mUsers.size();
+    }
+
+    /**
+     * 改变显示删除的imageView，通过定义变量isShow去接收变量isManager
+     */
+
+    public Boolean changeShowDelImage(boolean isShow) {
+        this.isShow = isShow;
+        notifyDataSetChanged();
+        return isShow;
+    }
+
+    public interface IItem {
+        //接口中的方法
+        void setOnItem(int position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
