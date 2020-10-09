@@ -1,6 +1,5 @@
 package com.zsmarter.moresettings;
 
-import android.graphics.Color;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -71,7 +70,7 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         super.onSelectedChanged(viewHolder, actionState);
         Log.e(TAG, "onSelectedChanged()");
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffffffff"));
+            //viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffffffff"));
         }
     }
 
