@@ -30,11 +30,18 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         this.context = context;
     }
 
-    //此方法就是连接接口与activity的桥梁
+    /**
+     * 此方法就是连接接口与activity的桥梁
+     */
     public void setItem(IItem iItem) {
         this.iItem = iItem;
     }
 
+    /**
+     * 保存数据
+     *
+     * @param users 数据列表
+     */
     public void setData(List<User> users) {
         this.mUsers = users;
         notifyDataSetChanged();
@@ -43,7 +50,7 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     @NonNull
     @Override
     public ItemTouchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_touch, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.items_touch, parent, false);
         return new ViewHolder(view);
     }
 

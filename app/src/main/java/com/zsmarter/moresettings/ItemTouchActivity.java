@@ -55,12 +55,9 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         //拿到item的position
-        itemTouchAdapter.setItem(new ItemTouchAdapter.IItem() {
-            @Override
-            public void setOnItem(int position) {
-                if (position > 2) {
-                    //Toast.makeText(ItemTouchActivity.this, "点击了" + (position), Toast.LENGTH_SHORT).show();
-                }
+        itemTouchAdapter.setItem(position -> {
+            if (position > 2) {
+                //Toast.makeText(ItemTouchActivity.this, "点击了" + (position), Toast.LENGTH_SHORT).show();
             }
         });
     }

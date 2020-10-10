@@ -16,6 +16,7 @@ import java.util.Objects;
 
 /**
  * @author Administrator
+ * 分割线
  */
 public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 

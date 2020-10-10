@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author Administrator
+ * 间隔
  */
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 

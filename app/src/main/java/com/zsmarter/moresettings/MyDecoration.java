@@ -7,18 +7,22 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- *
+ * @author Administrator
+ * LinearLayout分割线
  */
 public class MyDecoration extends RecyclerView.ItemDecoration {
 
     public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
-    //我们通过获取系统属性中的listDivider来添加，在系统中的AppTheme中设置
+    /**
+     * 我们通过获取系统属性中的listDivider来添加，在系统中的AppTheme中设置
+     */
     public static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };
@@ -43,7 +47,7 @@ public class MyDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDraw(Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         if (mOrientation == HORIZONTAL_LIST) {
             drawVerticalLine(c, parent, state);
         } else {
@@ -88,7 +92,7 @@ public class MyDecoration extends RecyclerView.ItemDecoration {
 
     //由于Divider也有长宽高，每一个Item需要向下或者向右偏移
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         if (mOrientation == HORIZONTAL_LIST) {
             //画横线，就是往下偏移一个分割线的高度
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
@@ -97,6 +101,4 @@ public class MyDecoration extends RecyclerView.ItemDecoration {
             outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
         }
     }
-
-
 }

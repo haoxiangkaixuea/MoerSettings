@@ -17,7 +17,7 @@ import java.util.List;
 public class DataUtils {
 
     public static final String DEFAULT_SP_NAME = "DEFAULT_SP_NAME";
-    private static String TAG = "DataUtils";
+    private static final String TAG = "DataUtils";
 
     public static <T> void saveData(List<T> data, String spName, String key, Context context) {
         SharedPreferences preferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
