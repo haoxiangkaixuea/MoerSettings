@@ -56,7 +56,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         if (childCount <= 0) {
             return;
         }
-        for (int i = 10; i < 14; i++) {
+        for (int i = 13; i < 14; i++) {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();

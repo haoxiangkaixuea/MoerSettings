@@ -52,31 +52,33 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         //拿到当前拖拽到的item的viewHolder
         int toPosition = target.getAdapterPosition();
         Log.e(TAG, "toPosition" + toPosition);
-        if ((fromPosition > Constants.TWO && toPosition > Constants.TWO)) {
-            if (fromPosition < toPosition) {
-                for (int i = fromPosition; i < toPosition; i++) {
-                    if (i == 13) {
-                        continue;
+        if (fromPosition != Constants.THIRTEEN && toPosition != Constants.THIRTEEN) {
+            if ((fromPosition > Constants.TWO && toPosition > Constants.TWO)) {
+                if (fromPosition < toPosition) {
+                    for (int i = fromPosition; i < toPosition; i++) {
+                        if (i == 13) {
+                            continue;
+                        }
+                        if (i == 12) {
+                            Collections.swap(userList, i, i + 2);
+                        } else {
+                            Collections.swap(userList, i, i + 1);
+                        }
                     }
-                    if (i == 12) {
-                        Collections.swap(userList, i, i + 2);
-                    } else {
-                        Collections.swap(userList, i, i + 1);
+                } else {
+                    for (int i = fromPosition; i > toPosition; i--) {
+                        if (i == 13) {
+                            continue;
+                        }
+                        if (i == 14) {
+                            Collections.swap(userList, i, i - 2);
+                        } else {
+                            Collections.swap(userList, i, i - 1);
+                        }
                     }
                 }
-            } else {
-                for (int i = fromPosition; i > toPosition; i--) {
-                    if (i == 13) {
-                        continue;
-                    }
-                    if (i == 14) {
-                        Collections.swap(userList, i, i - 2);
-                    } else {
-                        Collections.swap(userList, i, i - 1);
-                    }
-                }
+                mAdapter.notifyItemMoved(fromPosition, toPosition);
             }
-            mAdapter.notifyItemMoved(fromPosition, toPosition);
         }
         return true;
     }
@@ -86,7 +88,7 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
      */
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
+        Log.e(TAG, "onSwiped()");
     }
 
     /**
@@ -96,9 +98,6 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);
         Log.e(TAG, "onSelectedChanged()");
-        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            //viewHolder.itemView.setBackgroundColor(Color.parseColor("#ffffffff"));
-        }
     }
 
     /**
@@ -110,7 +109,8 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         Log.e(TAG, "clearView()");
         viewHolder.itemView.setBackgroundColor(0);
         //完成拖动后刷新适配器，这样拖动后删除就不会错乱
-        mAdapter.notifyDataSetChanged();
+        //延时刷新
+        recyclerView.post(() -> mAdapter.notifyDataSetChanged());
     }
 
     /**

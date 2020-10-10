@@ -53,6 +53,10 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
         //拖拽功能
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        // 设置分割线
+//        GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
+//        recyclerView.addItemDecoration(decoration);
     }
 
     private void initUser() {

@@ -16,8 +16,10 @@ import java.util.List;
 /**
  * @author Administrator
  */
-public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.ViewHolder> {
+public class ItemTouchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int TYPE_USER = 0;
+    private static final int TYPE_SPLIT = 1;
     private List<User> mUsers = new ArrayList<>();
     private boolean isShow;
     private Context context;
@@ -38,28 +40,38 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
 
     @NonNull
     @Override
-    public ItemTouchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.items_touch, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_USER) {
+            View view = LayoutInflater.from(context).inflate(R.layout.items_touch, parent, false);
+            return new ViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
+            return new SplitViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(ItemTouchAdapter.ViewHolder holder, int position) {
-        User user = mUsers.get(position);
-        holder.tvName.setText(user.getName());
-        holder.sImg.setImageResource(user.getImg());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        int viewType = getItemViewType(position);
+        if (viewType == TYPE_USER) {
+            User user = mUsers.get(position);
+            ((ViewHolder) holder).tvName.setText(user.getName());
+            ((ViewHolder) holder).sImg.setImageResource(user.getImg());
 
-        holder.sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
-        holder.sDelete.setOnClickListener(view -> remove(position));
+            ((ViewHolder) holder).sDelete.setImageResource(R.drawable.ic_baseline_clear_24);
+            ((ViewHolder) holder).sDelete.setOnClickListener(view -> remove(position));
 
-        if (isShow) {
-            holder.sDelete.setVisibility(View.VISIBLE);
+            if (isShow) {
+                ((ViewHolder) holder).sDelete.setVisibility(View.VISIBLE);
+            } else {
+                ((ViewHolder) holder).sDelete.setVisibility(View.INVISIBLE);
+            }
+
+            if (position < Constants.THERE) {
+                ((ViewHolder) holder).sDelete.setVisibility(View.GONE);
+            }
         } else {
-            holder.sDelete.setVisibility(View.INVISIBLE);
-        }
-
-        if (position < Constants.THERE) {
-            holder.sDelete.setVisibility(View.GONE);
+            ((SplitViewHolder) holder).tvSplit.setText(R.string.text_split);
         }
     }
 
@@ -67,6 +79,15 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         mUsers.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mUsers.size());
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 13) {
+            return TYPE_SPLIT;
+        } else {
+            return TYPE_USER;
+        }
     }
 
     @Override
@@ -92,6 +113,15 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
             tvName = itemView.findViewById(R.id.rename);
             sImg = itemView.findViewById(R.id.reImg);
             sDelete = itemView.findViewById(R.id.imgDelete);
+        }
+    }
+
+    static class SplitViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvSplit;
+
+        public SplitViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvSplit = itemView.findViewById(R.id.s_rename);
         }
     }
 }

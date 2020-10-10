@@ -2,4 +2,5 @@
     <string name="app_name">MoreSettings</string>
     <string name="Pop_dialog">弹出对话框</string>
     <string name="setting">管理</string>
+    <string name="text_split">-----只能显示以上布局-----</string>
 </resources>
