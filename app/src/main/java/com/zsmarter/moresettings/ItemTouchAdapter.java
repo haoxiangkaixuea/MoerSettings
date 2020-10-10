@@ -77,7 +77,6 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     /**
      * 改变显示删除的imageView，通过定义变量isShow去接收变量isManager
      */
-
     public void changeShowDelImage(boolean isShow) {
         this.isShow = isShow;
         notifyDataSetChanged();
