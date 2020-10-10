@@ -29,10 +29,12 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int itemViewType = viewHolder.getAdapterPosition();
         int dragFag = 0;
-        if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
-            dragFag = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-        } else if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-            dragFag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        if (itemViewType > 2 && itemViewType != 13) {
+            if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
+                dragFag = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            } else if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+                dragFag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            }
         }
         return makeMovementFlags(dragFag, 0);
     }
