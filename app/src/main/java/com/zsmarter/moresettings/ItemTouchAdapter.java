@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
     private List<User> mUsers = new ArrayList<>();
     private boolean isShow;
     private IItem iItem;
-    private ItemTouchHelper mItemHelper;
     private Context context;
 
     public ItemTouchAdapter(Context context) {
@@ -99,8 +97,13 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<ItemTouchAdapter.View
         return isShow;
     }
 
+    /**
+     * 传递position
+     */
     public interface IItem {
-        //接口中的方法
+        /**
+         * 接口中的方法
+         */
         void setOnItem(int position);
     }
 

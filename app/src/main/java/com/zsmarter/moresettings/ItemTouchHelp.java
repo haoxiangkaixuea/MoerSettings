@@ -18,18 +18,20 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
     private static final String TAG = "ImgItemTouchHelper";
     public List<User> userList;
     private ItemTouchAdapter mAdapter;
-    private boolean isShow;
 
     public ItemTouchHelp(List<User> userList, ItemTouchAdapter mAdapter) {
         this.userList = userList;
         this.mAdapter = mAdapter;
     }
 
+    /**
+     * 设置是否滑动时间，以及拖拽的方向.
+     */
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         int itemViewType = viewHolder.getAdapterPosition();
         int dragFag = 0;
-        if (itemViewType > 2 && itemViewType != 13) {
+        if (itemViewType > Constants.TWO && itemViewType != Constants.THIRTEEN) {
             if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
                 dragFag = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
             } else if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -39,6 +41,9 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         return makeMovementFlags(dragFag, 0);
     }
 
+    /**
+     * 在拖动的过程中不断回调的方法,在这里可以写上一些交换数据的逻辑
+     */
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         Log.e(TAG, "onMove()");
@@ -47,7 +52,7 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         //拿到当前拖拽到的item的viewHolder
         int toPosition = target.getAdapterPosition();
         Log.e(TAG, "toPosition" + toPosition);
-        if ((fromPosition > 2 && toPosition > 2)) {
+        if ((fromPosition > Constants.TWO && toPosition > Constants.TWO)) {
             if (fromPosition < toPosition) {
                 for (int i = fromPosition; i < toPosition; i++) {
                     if (i == 13) {
@@ -76,11 +81,17 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
         return true;
     }
 
+    /**
+     * 拖动完成以后会回调的方法
+     */
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
     }
 
+    /**
+     * 在选中以后回调的方法
+     */
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);
@@ -103,7 +114,7 @@ public class ItemTouchHelp extends ItemTouchHelper.Callback {
     }
 
     /**
-     * 重写拖拽不可用
+     * 重写是否允许item被拖拽的方法
      */
     @Override
     public boolean isLongPressDragEnabled() {

@@ -37,10 +37,10 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position == 13) {
-                    return 5;
+                if (position == Constants.THIRTEEN) {
+                    return Constants.FIVE;
                 } else {
-                    return 1;
+                    return Constants.ONE;
                 }
             }
         });
@@ -56,7 +56,7 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
 
         //拿到item的position
         itemTouchAdapter.setItem(position -> {
-            if (position > 2) {
+            if (position > Constants.TWO) {
                 //Toast.makeText(ItemTouchActivity.this, "点击了" + (position), Toast.LENGTH_SHORT).show();
             }
         });
@@ -64,7 +64,6 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
 
     private void initUser() {
         userList = DataUtils.getData(DataUtils.DEFAULT_SP_NAME, "userList", this);
-        Log.d(TAG, "size: " + userList.size());
         if (userList.size() == 0) {
             userList.add(new User("饿了么", R.drawable.elimo));
             userList.add(new User("口碑", R.drawable.kobei));
@@ -90,17 +89,16 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
             userList.add(new User("怪兽充电", R.drawable.guaishouchongdian));
         }
         Log.d(TAG, "userList==" + userList);
-        Log.d(TAG, "itemTouchAdapter==" + itemTouchAdapter);
         itemTouchAdapter.setData(userList);
         itemTouchAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void onDestroy() {
+        //销毁前存储数据
         DataUtils.saveData(userList, DataUtils.DEFAULT_SP_NAME, "userList", this);
         super.onDestroy();
         Log.d(TAG, "userList==" + userList);
-        //销毁前存储数据
     }
 
     @Override
