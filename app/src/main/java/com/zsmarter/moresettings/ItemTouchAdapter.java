@@ -83,7 +83,7 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 13) {
+        if (position == Constants.THIRTEEN) {
             return TYPE_SPLIT;
         } else {
             return TYPE_USER;
