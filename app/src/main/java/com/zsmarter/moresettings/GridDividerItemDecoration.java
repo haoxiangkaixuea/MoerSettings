@@ -1,10 +1,12 @@
 package com.zsmarter.moresettings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -21,13 +23,16 @@ import java.util.Objects;
 public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
+    private static final String TAG = "GridDividerItemDecoration";
     private Drawable mDivider;
 
+    @SuppressLint("LongLogTag")
     public GridDividerItemDecoration(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         //自定义分割线颜色值
-        mDivider = AppCompatResources.getDrawable(context, R.drawable.show);
+        mDivider = AppCompatResources.getDrawable(context, R.drawable.p2main);
+        Log.d(TAG, "mDivider" + mDivider);
         a.recycle();
     }
 

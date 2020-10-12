@@ -4,6 +4,6 @@
         android:centerColor="#F6F0F0"
         android:endColor="#F6F0F0"
         android:startColor="#F6F0F0"
-        android:type="linear" />
+        android:type="radial" />
     <size android:height="20dp" />
 </shape>

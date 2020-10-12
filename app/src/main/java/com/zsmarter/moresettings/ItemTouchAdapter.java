@@ -70,8 +70,9 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (position < Constants.THERE) {
                 ((ViewHolder) holder).sDelete.setVisibility(View.GONE);
             }
+
         } else {
-            ((SplitViewHolder) holder).tvSplit.setText(R.string.text_split);
+            ((SplitViewHolder) holder).tvSplit.setText("");
         }
     }
 
@@ -79,6 +80,11 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         mUsers.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mUsers.size());
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
