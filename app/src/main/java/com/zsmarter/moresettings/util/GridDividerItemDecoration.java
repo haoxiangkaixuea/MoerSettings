@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsmarter.moresettings.R;
+import com.zsmarter.moresettings.constant.Constants;
 
 import java.util.Objects;
 
@@ -63,7 +64,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         if (childCount <= 0) {
             return;
         }
-        for (int i = 13; i < 14; i++) {
+        for (int i = Constants.THIRTEEN; i < Constants.FOURTEEN; i++) {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
