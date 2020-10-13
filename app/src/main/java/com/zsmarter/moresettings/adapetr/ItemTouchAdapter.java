@@ -1,4 +1,4 @@
-package com.zsmarter.moresettings;
+package com.zsmarter.moresettings.adapetr;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.zsmarter.moresettings.R;
+import com.zsmarter.moresettings.constant.Constants;
+import com.zsmarter.moresettings.modle.User;
 
 import java.util.ArrayList;
 import java.util.List;

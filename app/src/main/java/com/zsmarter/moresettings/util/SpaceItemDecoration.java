@@ -1,4 +1,4 @@
-package com.zsmarter.moresettings;
+package com.zsmarter.moresettings.util;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;

@@ -1,4 +1,4 @@
-package com.zsmarter.moresettings;
+package com.zsmarter.moresettings.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.zsmarter.moresettings.ItemTouchHelp;
+import com.zsmarter.moresettings.R;
+import com.zsmarter.moresettings.adapetr.ItemTouchAdapter;
+import com.zsmarter.moresettings.constant.Constants;
+import com.zsmarter.moresettings.modle.User;
+import com.zsmarter.moresettings.util.DataUtils;
+import com.zsmarter.moresettings.util.GridDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

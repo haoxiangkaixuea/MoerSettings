@@ -1,4 +1,4 @@
-package com.zsmarter.moresettings;
+package com.zsmarter.moresettings.modle;
 
 import androidx.annotation.NonNull;
 

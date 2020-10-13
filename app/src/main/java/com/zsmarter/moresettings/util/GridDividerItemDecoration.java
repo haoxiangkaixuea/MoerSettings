@@ -1,4 +1,4 @@
-package com.zsmarter.moresettings;
+package com.zsmarter.moresettings.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.zsmarter.moresettings.R;
 
 import java.util.Objects;
 

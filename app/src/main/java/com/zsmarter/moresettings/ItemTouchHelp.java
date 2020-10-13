@@ -8,6 +8,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zsmarter.moresettings.adapetr.ItemTouchAdapter;
+import com.zsmarter.moresettings.constant.Constants;
+import com.zsmarter.moresettings.modle.User;
+
 import java.util.Collections;
 import java.util.List;
 
