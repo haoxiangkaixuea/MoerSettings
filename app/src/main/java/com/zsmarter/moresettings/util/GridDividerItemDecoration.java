@@ -143,10 +143,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             outRect.set(0, 0, 0, 0);
             return;
         }
-        if (childAdapterPosition == lastCount) {
-            outRect.set(0, 0, 0, 0);
-            return;
-        }
-        outRect.set(0, 0, 0, 0);
+        outRect.set(0, 0, 0, 20);
     }
 }
