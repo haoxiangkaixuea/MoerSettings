@@ -144,6 +144,6 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             outRect.set(0, 0, 0, 0);
             return;
         }
-        outRect.set(0, 0, 0, 20);
+        outRect.set(0, 0, 0, 0);
     }
 }
