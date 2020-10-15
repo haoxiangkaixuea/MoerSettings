@@ -36,6 +36,7 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
     private Button btnSet;
     private ItemTouchAdapter itemTouchAdapter;
     private RecyclerView recyclerView;
+    private List<User> userList1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +94,11 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
 
     private void initUser() {
         userList = DataUtils.getData(DataUtils.DEFAULT_SP_NAME, "userList", this);
-        Log.d(TAG, " initUser userList Size: " + userList.size());
+        Log.d(TAG, " initUser SP中userList Size: " + userList.size());
         if (userList.size() == 0) {
             userList.addAll(stringList);
         }
-        Log.d(TAG, " initUser userList.addAll(stringList) Size: " + userList.size());
+        Log.d(TAG, " initUser userList添加stringList后: " + userList.size());
         itemTouchAdapter.setData(userList);
         itemTouchAdapter.notifyDataSetChanged();
     }
@@ -122,9 +123,14 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
         stringList = list;
         Log.d(TAG, "stringList  Size: " + stringList.size());
         Log.d(TAG, "stringList数据: " + stringList);
+        //拿到储存的stringList
         stringList1 = DataUtils.getData(DataUtils.DEFAULT_SP_NAME, "stringList", this);
-        Log.d(TAG, "disRepeat(stringList, stringList1)" + DisRepeatUtils.disRepeat(stringList, stringList1));
+        //拿到服务器与储存数据的不同数据
+        userList1 = DisRepeatUtils.disRepeat(stringList, stringList1);
+        DataUtils.saveData(userList1, DataUtils.DEFAULT_SP_NAME, "userList1", this);
+        Log.d(TAG, "userList1数据: " + userList1);
         initUser();
+
         ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
         Log.d(TAG, "userList数据: " + userList);
         Log.d(TAG, " userList Size: " + userList.size());

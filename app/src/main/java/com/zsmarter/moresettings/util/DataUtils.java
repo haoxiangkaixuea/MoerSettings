@@ -31,6 +31,13 @@ public class DataUtils {
         editor.apply();
     }
 
+    public static <T> void removeData(List<T> data, String spName, String key, Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
     public static List<User> getData(String spName, String key, Context context) {
         List<User> data = new ArrayList<>();
         SharedPreferences preferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE);

@@ -38,9 +38,11 @@ public class DisRepeatUtils {
         if (s1.size() > s2.size()) {
             //rps1中独有的数据
             return s1;
-        } else {
-            return rps1Bak;
+        } else if (s1.size() == s2.size()) {
+            return null;
             //交集的数据
+        } else {
+            return s2;
         }
         // mapList.put(2, s2);//rps2中的独有数据
     }
