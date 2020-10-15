@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsmarter.moresettings.adapetr.ItemTouchAdapter;
 import com.zsmarter.moresettings.constant.Constants;
-import com.zsmarter.moresettings.modle.User;
+import com.zsmarter.moresettings.data.User;
 
 import java.util.Collections;
 import java.util.List;

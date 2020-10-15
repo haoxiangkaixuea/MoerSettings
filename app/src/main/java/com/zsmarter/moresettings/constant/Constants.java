@@ -10,4 +10,5 @@ public class Constants {
     public static final int FOURTEEN = 14;
     public static final int ONE = 1;
     public static final int THERE = 3;
+    public static final String GET_CODE = "00";
 }

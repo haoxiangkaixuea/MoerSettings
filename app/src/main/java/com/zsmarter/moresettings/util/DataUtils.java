@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zsmarter.moresettings.modle.User;
+import com.zsmarter.moresettings.data.User;
 
 import java.util.ArrayList;
 import java.util.List;

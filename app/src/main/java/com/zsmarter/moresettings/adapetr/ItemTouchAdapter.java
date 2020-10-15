@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsmarter.moresettings.R;
 import com.zsmarter.moresettings.constant.Constants;
-import com.zsmarter.moresettings.modle.User;
+import com.zsmarter.moresettings.data.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +23,13 @@ public class ItemTouchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private static final int TYPE_USER = 0;
     private static final int TYPE_SPLIT = 1;
-    private List<User> mUsers = new ArrayList<>();
+    private List<User> mUsers;
     private boolean isShow;
     private Context context;
 
-    public ItemTouchAdapter(Context context) {
+    public ItemTouchAdapter(Context context, List<User> mUsers) {
         this.context = context;
+        this.mUsers = mUsers;
     }
 
     /**

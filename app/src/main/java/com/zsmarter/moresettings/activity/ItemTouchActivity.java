@@ -14,9 +14,11 @@ import com.zsmarter.moresettings.ItemTouchHelp;
 import com.zsmarter.moresettings.R;
 import com.zsmarter.moresettings.adapetr.ItemTouchAdapter;
 import com.zsmarter.moresettings.constant.Constants;
-import com.zsmarter.moresettings.modle.User;
+import com.zsmarter.moresettings.data.User;
+import com.zsmarter.moresettings.presenter.ItemPresenter;
 import com.zsmarter.moresettings.util.DataUtils;
 import com.zsmarter.moresettings.util.GridDividerItemDecoration;
+import com.zsmarter.moresettings.view.ItemView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +26,14 @@ import java.util.List;
 /**
  * @author Administrator
  */
-public class ItemTouchActivity extends AppCompatActivity implements View.OnClickListener {
+public class ItemTouchActivity extends AppCompatActivity implements View.OnClickListener, ItemView {
     private static final String TAG = "ItemTouchActivity";
+    public List<User> stringList = new ArrayList<>();
     private List<User> userList = new ArrayList<>();
     private Boolean isManager = false;
     private Button btnSet;
     private ItemTouchAdapter itemTouchAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
         btnSet = findViewById(R.id.set);
         btnSet.setOnClickListener(this);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -52,57 +56,24 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
                 }
             }
         });
-        itemTouchAdapter = new ItemTouchAdapter(this);
+
+        itemTouchAdapter = new ItemTouchAdapter(this, userList);
+
         recyclerView.setAdapter(itemTouchAdapter);
 
-        initUser();
-
-        ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
-        //拖拽功能
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        ItemPresenter itemPresenter = new ItemPresenter(this);
+        itemPresenter.showList();
 
         // 设置分割线
         GridDividerItemDecoration decoration = new GridDividerItemDecoration(ItemTouchActivity.this);
         recyclerView.addItemDecoration(decoration);
     }
 
-    private void initUser() {
-        userList = DataUtils.getData(DataUtils.DEFAULT_SP_NAME, "userList", this);
-        if (userList.size() == 0) {
-            userList.add(new User("饿了么", R.drawable.elimo));
-            userList.add(new User("口碑", R.drawable.kobei));
-            userList.add(new User("市民中心", R.drawable.chengshifuwu));
-            userList.add(new User("电影演出", R.drawable.dinayingyanchu));
-            userList.add(new User("转账", R.drawable.zhuanzhan));
-            userList.add(new User("滴滴出行", R.drawable.didichuxing));
-            userList.add(new User("充值中心", R.drawable.chongzhi));
-            userList.add(new User("余额宝", R.drawable.yuebao));
-            userList.add(new User("菜鸟驿站", R.drawable.cainiaoyizhan));
-            userList.add(new User("记账本", R.drawable.jizhangben));
-            userList.add(new User("校园一卡通", R.drawable.yikatong));
-            userList.add(new User("火车机票", R.drawable.huochepiao));
-            userList.add(new User("饿了么", R.drawable.elimo));
-            userList.add(new User("健康码", R.drawable.jinagkangma));
-            userList.add(new User("花呗", R.drawable.huabei));
-            userList.add(new User("芝麻信用", R.drawable.zhimaxingyong));
-            userList.add(new User("酒店出游", R.drawable.jiudian));
-            userList.add(new User("蚂蚁保险", R.drawable.mayibaoxian));
-            userList.add(new User("消费券", R.drawable.xioafeijuan));
-            userList.add(new User("街电", R.drawable.jiedian));
-            userList.add(new User("哈喽出行", R.drawable.hallo));
-            userList.add(new User("怪兽充电", R.drawable.guaishouchongdian));
-        }
-        Log.d(TAG, "userList==" + userList);
-        itemTouchAdapter.setData(userList);
-        itemTouchAdapter.notifyDataSetChanged();
-    }
-
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         //销毁前存储数据
+        super.onStop();
         DataUtils.saveData(userList, DataUtils.DEFAULT_SP_NAME, "userList", this);
-        super.onDestroy();
         Log.d(TAG, "userList==" + userList);
     }
 
@@ -115,5 +86,43 @@ public class ItemTouchActivity extends AppCompatActivity implements View.OnClick
             Log.d(TAG, "isManager==  " + isManager);
             itemTouchAdapter.changeShowDelImage(isManager);
         }
+    }
+
+    private void initUser() {
+        userList = DataUtils.getData(DataUtils.DEFAULT_SP_NAME, "userList", this);
+        if (userList.size() == 0) {
+            userList.addAll(stringList);
+        }
+        itemTouchAdapter.setData(userList);
+        itemTouchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void returnSuccess(String result) {
+        Log.d(TAG, "result" + result);
+    }
+
+    @Override
+    public void returnFailure(String msg) {
+        Log.d(TAG, "msg" + msg);
+    }
+
+    @Override
+    public void networkError(Throwable t) {
+        Log.d(TAG, "网络错误" + t);
+    }
+
+    @Override
+    public void getList(List<User> list) {
+        stringList = list;
+        Log.d(TAG, "stringList  Size: " + stringList.size());
+        Log.d(TAG, "stringList数据: " + stringList);
+        initUser();
+        ItemTouchHelp itemTouchCallBack = new ItemTouchHelp(userList, itemTouchAdapter);
+        Log.d(TAG, "userList数据: " + userList);
+        Log.d(TAG, " userList Size: " + userList.size());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallBack);
+        // 拖拽功能
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }
