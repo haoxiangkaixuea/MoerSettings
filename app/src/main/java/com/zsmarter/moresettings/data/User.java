@@ -2,6 +2,8 @@ package com.zsmarter.moresettings.data;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 /**
  * @author Administrator
  */
@@ -17,6 +19,25 @@ public class User {
     public User(String name, int img) {
         this.name = name;
         this.img = img;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return img == user.img &&
+                delete == user.delete &&
+                Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(img, delete, name);
     }
 
     public int getDelete() {
